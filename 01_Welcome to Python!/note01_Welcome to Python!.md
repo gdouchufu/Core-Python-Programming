@@ -1,4 +1,3 @@
-[TOC]
 # 本章大纲
 第一章主要讲了Python的起源、特点、Python的安装和运行、Python的实现版本
 
