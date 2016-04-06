@@ -7,7 +7,8 @@
 标准类型操作符一般都能适用于所有的序列类型。
 
 ### 6.1.2 序列类型操作符
-![](index_files/6.1._20Sequence_20Type_20Operators.png)
+
+![](./6.1 Sequence Type Operators.png "Sequence Type Operators")
 
 **高效合并：**
 
