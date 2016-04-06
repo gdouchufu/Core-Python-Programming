@@ -76,6 +76,7 @@ not 运算符拥有最高优先级，只比所有比较运算符低一级。 and
  - 映射访问：字典
 
 标准类型分类：
+
 ![Categorizing the Standard Types](./4.9 Categorizing the Standard Types.png)
 
 ## 4.11 不支持的类型
