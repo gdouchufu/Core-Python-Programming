@@ -26,7 +26,8 @@
 2. 比较key：key比较的顺序和 keys()方法返回key的顺序相同。
 3. 比较value：若key相同，则比较对应的value
 4. 长度、keys、values都相等，完全匹配返回0
-![](index_files/7-1._20How_20dictionaries_20are_20compared.png)
+
+![](./7-1 How dictionaries are compared.png "How dictionaries are compared")
 
 ## 7.3 字典的浅复制
 
