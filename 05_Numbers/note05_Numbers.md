@@ -37,7 +37,8 @@
 **不同数据类型转换基本原则**：整数转换为浮点数，非复数转换为复数。
 
 数值类型强制转换的流程：
-![](index_files/Unnamed_20QQ_20Screenshot20160218162943.png)
+
+![Integer Type Built-in Functions](./5.7 Integer Type Built-in Functions.png "Integer Type Built-in Functions")
 
 使用内建函数`coerce()`，对某种数据类型进行特殊类型转换。
 
@@ -279,7 +280,9 @@ print lcm(24,18)
 ```
 
 **5-16 家庭财务。给定一个初始金额和月开销数， 使用循环，确定剩下的金额和当月的支出数， 包括最后的支出数。 Payment() 函数会用到初始金额和月额度， 输出结果应该类似下 面的格式（例子中的数字仅用于演示）：**
-![](index_files/Unnamed_20QQ_20Screenshot20160218193212.png)
+
+![5-16 exercise](./5-16 exercise.png "5-16 exercise")
+
 ```python
 def pay():
     balance = float(raw_input('Enter opening balance: '))

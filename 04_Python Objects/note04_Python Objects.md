@@ -77,7 +77,7 @@ not 运算符拥有最高优先级，只比所有比较运算符低一级。 and
 
 标准类型分类：
 
-![Categorizing the Standard Types](./4.9 Categorizing the Standard Types.png)
+![Categorizing the Standard Types](./4.9 Categorizing the Standard Types.png "Categorizing the Standard Types")
 
 ## 4.11 不支持的类型
 + **char、byte**：使用长度为1的字符串表示字符或8比特整数
