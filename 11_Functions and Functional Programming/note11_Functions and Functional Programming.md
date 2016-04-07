@@ -427,7 +427,7 @@ print filter(lambda year:(year%4==0 and year%100!=0) or (year%400==0),years)
 print [year for year in years if (year%4==0 and year%100!=0) or (year%400==0)]
 ```
 
-11–9. 用 reduce()进行函数式编程。复习 11.7.2 部分，阐述如何用 reduce()数字集合的累加的代码。修改它，创建一个叫 average()的函数来计算每个数字集合的简单的平均值。
+**11–9. 用 reduce()进行函数式编程。复习 11.7.2 部分，阐述如何用 reduce()数字集合的累加的代码。修改它，创建一个叫 average()的函数来计算每个数字集合的简单的平均值。**
 
 ```python
 def average(arr):
@@ -442,3 +442,183 @@ print average([1,23,4,3])
 
 **11–11.用 map()进行函数式编程。写一个使用文件名以及通过除去每行中所有排头和最尾的空白来“清洁“文件。在原始文件中读取然后写入一个新的文件，创建一个新的或者覆盖掉已存在的。 给你的用户一个选择来决定执行哪一个。将你的解转换成使用列表解析。**
 
+`lines = filter(lambda line : line.strip()+'\n', open('test.txt'))`
+
+**11–12. 传递函数。给在这章中描述的 testit()函数写一个姊妹函数。timeit()会带一个函数对象（和参数一起）以及计算出用了多少时间来执行这个函数，而不是测试执行时的错误。返回下面的状态：函数返回值，消耗的时间。你可以用 time.clock()或者 time.time()，无论哪一个给你提供了较高的精度。 （一般的共识是在 POSIX 上用 time.time()， 在 win32 系统上用 time.clock()） 注意：timeit()函数与 timeit 模块不相关(在 python2.3 中引入）**
+
+```python
+import time
+
+def timeit(func, *nkwargs, **kwargs):
+    begin = time.clock()
+    try:
+        retval = func(*nkwargs, **kwargs)
+        result = (True, retval, time.clock()-begin)
+    except Exception, diag:
+        result = (False, str(diag))
+    return result
+
+def test():
+    funcs = (int, long, float)
+    vals = (1234, 12.34, '1234', '12.34')
+
+    for eachFunc in funcs:
+        print '-' * 20
+        for eachVal in vals:
+            retval = timeit(eachFunc, eachVal)
+            if retval[0]:
+                print '%s(%s) =' % \
+                      (eachFunc.__name__, `eachVal`), retval[1]
+                print 'cost time(s): %s' % `retval[2]`
+            else:
+                print '%s(%s) = FAILED:' % \
+                      (eachFunc.__name__, `eachVal`), retval[1]
+
+if __name__ == '__main__':
+    test()
+```
+
+**11–13.使用 reduce()进行函数式编程以及递归。在第 8 章中，我们看到 N 的阶乘或者 N!作为 从 1 到 N 所有数字的乘积。**
+
+(a)用一分钟写一个带 x,y 并返回他们乘积的名为 mult(x,y)的简单小巧的函数。
+`def mult(x, y): return x * y`
+
+(b)用你在 a 中创建的 mult()函数以及 reduce 来计算阶乘。
+`reduce(mult, range(1, 4+1))`
+
+(c)彻底抛弃掉 mult()的使用，用 lamda 表达式替代。
+`reduce(lambda x, y : x * y, range(1, 4+1))`
+
+(d)在这章中，我们描绘了一个递归解决方案来找到 N!用你在上面问题中完成的 timeit()函数， 并给三个版本阶乘函数计时(迭代的，reduce()以及递归）
+
+```python
+import time
+
+def iterator_N(N):
+    result = 1
+    for n in range(1, N+1):
+        result *= n
+    return result
+
+def reduce_N(N):
+    return reduce(lambda x, y : x * y, range(1, N+1))
+
+def recursive_N(N):
+    if N == 0 or N == 1:
+        return 1
+    else:
+        return N * recursive_N(N-1)
+
+def timeit(func, *nkwargs, **kwargs):
+    begin = time.clock()
+    try:
+        retval = func(*nkwargs, **kwargs)
+        result = (True, retval, time.clock()-begin)
+    except Exception, diag:
+        result = (False, str(diag))
+    return result
+
+if __name__ == '__main__':
+    funcs = (iterator_N, reduce_N, recursive_N)
+    N = 4
+    for func in funcs:
+        retval = timeit(func, N)
+        if retval[0]:
+            print '%s(%s) =' % \
+                  (func.__name__, `N`), retval[1]
+            print 'cost time(s): %s' % `retval[2]`
+        else:
+            print '%s(%s) = FAILED:' % \
+                  (func.__name__, `N`), retval[1]
+```
+
+**11–15.递归。从写练习 6-5 的解，用递归向后打印一个字符串。用递归向前以及向后打印一个字符串。**
+```python
+def backward(s,i=0):
+    if i < len(s):
+        print s[0:i+1],
+        backward(s,i+1)
+
+def forward(s,j=0):
+    if j > -len(s):
+        print s[j-1:],
+        forward(s,j-1)
+
+if __name__=='__main__':
+    backward('abcdefg')
+    print
+    forward('abcdefg')
+```
+
+**11–16. 更新 easyMath.py。这个脚本，如例子 11.1 描绘的那样，以入门程序来帮助年轻人强化他们的数学技能。通过加入乘法作为可支持的操作来更进一步提升这个程序。额外的加分：也加入除法；这比较难做些因为你要找到有效的整数除数。幸运的是，已经有代码来确定分子比分母大， 所以不需要支持分数。**
+
+```python
+from operator import add, sub, mul, div
+from random import randint, choice
+
+ops = {'+': add, '-': sub, '*': mul, '/':div}
+MAXTRIES = 2
+
+def doprob():
+    op = choice('+-*/')
+    nums = [randint(1, 10) for i in range(2)]
+    nums.sort(reverse=True)
+
+    if (op == '/'):
+        while nums[0] % nums[1] != 0:
+            nums = [randint(1, 10) for i in range(2)]
+            nums.sort(reverse=True)
+
+    ans = ops[op](*nums)
+    pr = '%d %s %d = ' % (nums[0], op, nums[1])
+    oops = 0
+    while True:
+        try:
+            if int(raw_input(pr)) == ans:
+                print 'correct'
+                break
+            if oops == MAXTRIES:
+                print 'answer\n%s%d' % (pr, ans)
+            else:
+                print 'incorrect... try again'
+                oops += 1
+        except (KeyboardInterrupt, \
+                EOFError, ValueError):
+            print 'invalid input... try again'
+
+
+def main():
+    while True:
+        doprob()
+        try:
+            opt = raw_input('Again? [y]').lower()
+            if opt and opt[0] == 'n':
+                break
+        except (KeyboardInterrupt, EOFError):
+            break
+
+
+if __name__ == '__main__':
+    main()
+```
+
+**11–17.定义**
+**(a) 描述偏函数应用和 currying 之间的区别。**
+
+偏函数解决这样的问题：如果我们有函数是多个参数的，我们希望能固定其中某几个参数的值。
+
+Currying解决的是一个完全不同的问题：如果我们有几个单参数函数，并且这是一种支持一等函数(first-class)的语言，如何去实现一个多参数函数？函数加里化是一种实现多参数函数的方法。
+
+**(b) 偏函数应用和闭包之间有什么区别？**
+
+闭包：一个可以使用另外一个函数作用域中的变量的函数。
+
+偏函数：偏应用函数就是缺少部分或全部参数的函数
+
+**(c) 最后，迭代器和生成器是怎么区别开的？**
+
+生成器是迭代器的真子集。
+
+**11–18. 同步化函数调用。复习下第6章中当引入浅拷贝和深拷贝的时候，提到的丈夫和妻子情形（6\. 20小结）。他们共用了一个普通账户，同时对他们银行账户访问时会发生不利影响。创建一个程序，让调用改变账户收支的函数必需同步。换句话说，在任意给定时刻只能有个一进程或者线程来执行函数。一开始你试着用文件，但是一个真正的解决方法是用装饰器和在threading或者mutex模块中的同步指令。你看看第17章来获得更多的灵感。**
+
+*略。*
