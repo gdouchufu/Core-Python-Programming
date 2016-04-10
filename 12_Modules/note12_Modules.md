@@ -83,8 +83,7 @@ from cgi import FieldStorage as form
 警告框架的两个组件：
 
 - **warnings 模块**：是一些警告异常类的集合。 `Warning` 直接从 `Exception` 继承，是所有警告（`UserWarning`、`DeprecationWarning`、`SyntaxWarning`、 `RuntimeWarning`）的基类。
-- **警告过滤器**：收集关于警告的信息(行号、 警告原因等)，控制是否忽略警
-告、是否显示自定义的格式、或者转换为错误(生成一个异常)。
+- **警告过滤器**：收集关于警告的信息(行号、 警告原因等)，控制是否忽略警告、是否显示自定义的格式、或者转换为错误(生成一个异常)。
 
 ### 12.5.7 从 ZIP 文件中导入模块
 - 如果搜索路径中存在一个包含 Python 模块(`.py`、`.pyc,`、 `.pyo` 文件)的 `.zip` 文件，导入时会把 ZIP 文件当作目录处理，在文件中搜索模块。
@@ -133,7 +132,7 @@ reload(sys)
 ```python
 from Phone.Mobile.Analog import dial # 绝对导入
 from .Analog import dial # 相对导入
-from ..Fax import G3.dial. # 相对导入
+from ..Fax import G3.dial # 相对导入
 ```
 
 ## 12.8 模块的其他特性
@@ -186,9 +185,9 @@ def cli4vof():
 
 ## 12.9 相关模块
 - `imp`：这个模块提供了一些底层的导入者功能。
-- `modulefinder`该模块允许你查找 Python 脚本所使用的所有模块。
-- `pkgutil`：该模块提供了多种把 Python 包打包为一个"包"文件（*.pkg ）分发的方法。 
-- `site`：和 *.pth 文件配合使用, 指定包加入 Python 路径的顺序
+- `modulefinder`：该模块允许你查找 Python 脚本所使用的所有模块。
+- `pkgutil`：该模块提供了多种把 Python 包打包为一个"包"文件(`*.pkg`)分发的方法。 
+- `site`：和 `*.pth` 文件配合使用, 指定包加入 Python 路径的顺序。
 - `zipimport` ：使用该模块导入 ZIP 归档文件中的模块。
 - `distutils`：该模块提供了对建立、 安装、分发 Python 模块和包的支持。
 
@@ -221,7 +220,7 @@ def cli4vof():
 
 `sys = __import__('sys')`
 
-**(b)** 和上边相同, 使用 `__import__()` 从指定模块导入特定的名字。
+**(b)** 和上边相同，使用 `__import__()` 从指定模块导入特定的名字。
 `__import__('os',globals(),locals(),['path','pip'])`
 
 **12–6. 扩展导入。创建一个 importAs() 函数. 这个函数可以把一个模块导入到你的命名空间, 但使用你指定的名字, 而不是原始名字。 例如, 调用wname=importAs('mymodule') 会导入mymodule , 但模块和它的所有元素都通过新名称 newname 或 newname.attr 访问。 这是 Python2.0 引入的扩展导入实现的功能。**
